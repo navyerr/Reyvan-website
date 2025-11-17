@@ -81,5 +81,6 @@ function createFloatingImage(url, x, y, z) {
 }
 
 // contoh:
-createFloatingImage("images/foto1.jpg", 10, 2, -15);
-createFloatingImage("images/foto2.jpg", -5, 6, -10);
+createFloatingImage("images/img1.jpg", 10, 2, -15);
+createFloatingImage("images/img2.jpg", -5, 6, -10);
+
