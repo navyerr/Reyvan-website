@@ -1,75 +1,299 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Heart Animation</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-    <style>
-        /* Style for full-screen background canvas */
-        #pinkboard {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: 0; /* Background layer */
-        }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Planet Kenangan</title>
+  <style>
+    /* Basic reset */
+    html,body{height:100%;margin:0;background:#000;overflow:hidden;color:#fff}
+    body{font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial}
 
-        /* Navbar styling to stay on top */
-        .navbar {
-            position: absolute;
-            top: 0;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 2; /* Higher z-index to stay above canvas */
-        }
+    /* Title */
+    .title{
+      position: absolute;
+      top: 28px;
+      width: 100%;
+      text-align: center;
+      font-size: clamp(20px,3vw,48px);
+      letter-spacing: 1px;
+      color: #ffd3f2; /* soft pink */
+      text-shadow: 0 6px 24px rgba(255,150,220,0.06), 0 1px 0 rgba(0,0,0,0.6);
+      pointer-events: none;
+      z-index: 5;
+    }
 
-        .navbar .logo {
-            font-size: 1.5em;
-            font-weight: bold;
-            color: pink;
-        }
+    /* UI controls */
+    .ui {
+      position: absolute;
+      right: 18px;
+      bottom: 18px;
+      z-index: 6;
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
+    .btn {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: #fff;
+      padding: 8px 12px;
+      border-radius: 10px;
+      backdrop-filter: blur(6px);
+      cursor: pointer;
+      font-size:14px;
+    }
+    .hint {
+      position:absolute;left:18px;bottom:18px;color:#f7c;z-index:6;font-size:13px;opacity:0.9
+    }
 
-        .navbar a {
-            color: pink;
-            text-decoration: none;
-            margin: 0 15px;
-            font-size: 1em;
-            transition: color 0.3s, transform 0.2s;
-        }
+    /* small audio control icon */
+    .audio-icon { width: 40px; height: 40px; border-radius: 10px; display:flex;align-items:center;justify-content:center }
+    .audio-icon svg{filter: drop-shadow(0 6px 18px rgba(255,150,220,0.08));}
 
-        .navbar a:hover {
-            color: #E50914;
-            background-color: rgba(255, 255, 255, 0.2);
-            padding: 5px 10px;
-            border-radius: 5px;
-            transform: scale(1.05);
-        }
-    </style>
+    /* mobile friendly tweaks */
+    @media (max-width:600px){ .title{top:18px;font-size:20px} .btn{padding:6px 10px;font-size:13px} }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Navbar with links -->
-        <div class="navbar">
-            <div class="logo">NETFLIX</div>
-            <nav>
-                <a href="micin.html">Home</a>
-                <a href="series.html">Series</a>
-                <a href="Puisi.html">Puisi</a>
-                <a href="lagu.html">Playlist Musik</a>
-            </nav>
-        </div>
-        
-        <!-- Canvas for Heart Animation -->
-        <canvas id="pinkboard"></canvas>
-    </div>
+  <div class="title">Planet Kenangan</div>
+  <div class="hint">Scroll / pinch to zoom • Drag to orbit • Click music icon to play/pause</div>
 
-    <!-- JavaScript for heart animation -->
-    <script src="scriptlove.js"></script>
+  <div class="ui">
+    <button id="centerBtn" class="btn">Center</button>
+    <button id="toggleAuto" class="btn">Toggle Auto-rotate</button>
+    <button id="downloadBtn" class="btn">Download Screenshot</button>
+    <button id="musicBtn" class="btn audio-icon" title="Play/Pause music">
+      <!-- simple music icon -->
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 3v18l14-9L4 3z" fill="#fff" opacity="0.95"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- background music (replace src with your song) -->
+  <audio id="bgAudio" loop crossorigin>
+    <source src="Lagu/Sempurna.mp3" type="audio/mpeg">
+    Browsermu nggak support audio tag.
+  </audio>
+
+  <!-- Three.js scene will inject a canvas here -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/examples/js/controls/OrbitControls.js"></script>
+  <script>
+    // ====== CONFIG ======
+    const CONFIG = {
+      planetColor: 0xff77cc,      // pink planet base
+      planetEmissive: 0x331122,   // soft glow
+      planetRadius: 6,
+      starCount: 20000,
+      spriteCount: 80,            // how many placeholders (we'll place 5 photos larger)
+      photoScale: 3.6,            // default sprite size
+      photos: [
+  'Foto/img1.jpeg',
+  'Foto/img2.jpeg',
+  'Foto/img3.jpeg',
+  'Foto/img4.jpeg',
+  'Foto/img5.jpeg'
+]
+
+    };
+
+    // ====== SCENE & RENDERER ======
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(50, innerWidth/innerHeight, 0.1, 2000);
+    camera.position.set(0, 8, 28);
+
+    const renderer = new THREE.WebGLRenderer({antialias:true, alpha:false});
+    renderer.setSize(innerWidth, innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+    document.body.appendChild(renderer.domElement);
+
+    // ====== CONTROLS ======
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.08;
+    controls.autoRotate = true;
+    controls.autoRotateSpeed = 0.9;
+    controls.minDistance = 8;
+    controls.maxDistance = 120;
+
+    // ====== LIGHTS ======
+    const ambient = new THREE.AmbientLight(0xffffff, 0.25);
+    scene.add(ambient);
+    const point = new THREE.PointLight(0xffc0e6, 1.8, 200);
+    point.position.set(30,50,10);
+    scene.add(point);
+
+    // ====== PINK PLANET ======
+    const planetGeo = new THREE.SphereGeometry(CONFIG.planetRadius, 64, 64);
+    const planetMat = new THREE.MeshStandardMaterial({
+      color: CONFIG.planetColor,
+      emissive: CONFIG.planetEmissive,
+      roughness: 0.35,
+      metalness: 0.05
+    });
+    const planet = new THREE.Mesh(planetGeo, planetMat);
+    planet.position.y = -6; // horizon feel
+    scene.add(planet);
+
+    // subtle rim glow using another bigger transparent sphere
+    const glowGeo = new THREE.SphereGeometry(CONFIG.planetRadius*1.06, 32, 32);
+    const glowMat = new THREE.MeshBasicMaterial({color: CONFIG.planetColor, transparent:true, opacity:0.06});
+    const glow = new THREE.Mesh(glowGeo, glowMat);
+    glow.position.copy(planet.position);
+    scene.add(glow);
+
+    // ====== STARFIELD (particles) ======
+    const starsGeo = new THREE.BufferGeometry();
+    const starPositions = new Float32Array(CONFIG.starCount * 3);
+    for(let i=0;i<CONFIG.starCount;i++){
+      const r = 200; // spread radius
+      starPositions[i*3+0] = (Math.random()-0.5)*r;
+      starPositions[i*3+1] = (Math.random()-0.5)*r*0.6;
+      starPositions[i*3+2] = (Math.random()-0.5)*r;
+    }
+    starsGeo.setAttribute('position', new THREE.BufferAttribute(starPositions,3));
+    const starsMat = new THREE.PointsMaterial({size:0.35, color:0xffa6df, transparent:true, opacity:0.9});
+    const stars = new THREE.Points(starsGeo, starsMat);
+    scene.add(stars);
+
+    // add faint large star dust near horizon (plane of particles) to emulate the picture
+    const dustGeo = new THREE.BufferGeometry();
+    const dustCount = 6000;
+    const dustPos = new Float32Array(dustCount*3);
+    for(let i=0;i<dustCount;i++){
+      dustPos[i*3+0] = (Math.random()-0.5)*220;
+      dustPos[i*3+1] = -8 + Math.random()*6; // slightly below horizon and across
+      dustPos[i*3+2] = (Math.random()-0.5)*220;
+    }
+    dustGeo.setAttribute('position', new THREE.BufferAttribute(dustPos,3));
+    const dustMat = new THREE.PointsMaterial({size:0.6, color:0xff8fcf, transparent:true, opacity:0.85});
+    const dust = new THREE.Points(dustGeo, dustMat);
+    scene.add(dust);
+
+    // ====== HELPER: create floating photo sprite ======
+    const loader = new THREE.TextureLoader();
+
+    function createPhotoSprite(url, scale=CONFIG.photoScale){
+      const tex = loader.load(url);
+      tex.encoding = THREE.sRGBEncoding;
+      const mat = new THREE.SpriteMaterial({map: tex, transparent: true});
+      const sprite = new THREE.Sprite(mat);
+      sprite.scale.set(scale, scale, 1);
+      return sprite;
+    }
+
+    // place user photos: put the 5 chosen photos more visible near horizon
+    const photoPositions = [
+      {x: 18, y: -2, z:-8},
+      {x:-22, y:0, z:-12},
+      {x:6, y:3, z:-10},
+      {x:-6, y:-1, z:-6},
+      {x:28, y:-3, z:-20}
+    ];
+
+    const photoGroup = new THREE.Group();
+    CONFIG.photos.forEach((p,i)=>{
+      const s = createPhotoSprite(p, CONFIG.photoScale * 1.15);
+      const pos = photoPositions[i % photoPositions.length];
+      s.position.set(pos.x, pos.y, pos.z);
+      // add a tiny slow rotation animation by manipulating its quaternion later
+      photoGroup.add(s);
+    });
+    scene.add(photoGroup);
+
+    // create many small placeholder frames (to mimic many image tiles in scene)
+    for(let i=0;i<CONFIG.spriteCount;i++){
+      // random tiny images (could be placeholders)
+      const px = (Math.random()-0.5)*200;
+      const py = (Math.random()-0.2)*40 - 8;
+      const pz = (Math.random()-0.5)*200;
+      const s = createPhotoSprite('images/frame.png', 1.0 + Math.random()*2.6);
+      s.position.set(px, py, pz);
+      s.material.opacity = 0.95 - Math.random()*0.5;
+      scene.add(s);
+    }
+
+    // ====== Simple animation helpers ======
+    const clock = new THREE.Clock();
+
+    function animate(){
+      requestAnimationFrame(animate);
+      const t = clock.getElapsedTime();
+
+      // rotate planet slowly
+      planet.rotation.y += 0.0008 * 60 * 0.5;
+      glow.rotation.y = planet.rotation.y * 0.99;
+
+      // gently rotate each photo in group for life
+      photoGroup.children.forEach((s,idx)=>{
+        s.material.rotation = Math.sin(t*0.6 + idx) * 0.2; // small tilt
+      });
+
+      // subtle parallax dust movement
+      dust.rotation.y = t*0.02;
+      stars.rotation.y = t*0.004;
+
+      controls.update();
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    // ====== INTERACTIONS & UI ======
+    window.addEventListener('resize', ()=>{
+      camera.aspect = innerWidth/innerHeight; camera.updateProjectionMatrix(); renderer.setSize(innerWidth,innerHeight);
+    });
+
+    document.getElementById('centerBtn').addEventListener('click', ()=>{
+      // animate camera back to nice view
+      camera.position.set(0, 8, 28);
+      controls.target.set(0, -2, 0);
+    });
+
+    document.getElementById('toggleAuto').addEventListener('click', ()=>{
+      controls.autoRotate = !controls.autoRotate;
+      document.getElementById('toggleAuto').textContent = controls.autoRotate ? 'Auto-rotate: ON' : 'Auto-rotate: OFF';
+    });
+
+    // screenshot / download
+    document.getElementById('downloadBtn').addEventListener('click', ()=>{
+      renderer.domElement.toBlob(function(blob){
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'planet-kenangan.png';
+        a.click();
+      });
+    });
+
+    // music control
+    const audio = document.getElementById('bgAudio');
+    const musicBtn = document.getElementById('musicBtn');
+    let isPlaying = false;
+    musicBtn.addEventListener('click', async ()=>{
+      if(!isPlaying){
+        try{ await audio.play(); isPlaying=true; }
+        catch(e){ console.warn('autoplay blocked', e); isPlaying=false; }
+      } else { audio.pause(); isPlaying=false; }
+      musicBtn.style.opacity = isPlaying? '1':'0.9';
+    });
+
+    // try autoplay once (browser may block — user can then click icon)
+    setTimeout(()=>{
+      audio.volume = 0.45;
+      audio.play().then(()=>{ isPlaying=true; }).catch(()=>{ /* blocked */ });
+    },600);
+
+    // small camera orbit tweak on wheel for smoother zoom
+    let lastWheel=0;
+    window.addEventListener('wheel', (e)=>{ lastWheel = e.deltaY; });
+
+    // ====== NOTES ======
+    // - Replace images/foto1.jpg..foto5.jpg with your 5 photos.
+    // - Replace images/frame.png with a small white frame/placeholder icon.
+    // - Replace audio/lagu.mp3 with the song you want. Put files inside an 'audio' and 'images' folder.
+    // - To publish: upload this project folder (index.html + images/ + audio/) to Netlify / Vercel / Surge.
+
+  </script>
 </body>
 </html>
