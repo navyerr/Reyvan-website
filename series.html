@@ -204,16 +204,7 @@
     scene.add(photoGroup);
 
     // create many small placeholder frames (to mimic many image tiles in scene)
-    for(let i=0;i<CONFIG.spriteCount;i++){
-      // random tiny images (could be placeholders)
-      const px = (Math.random()-0.5)*200;
-      const py = (Math.random()-0.2)*40 - 8;
-      const pz = (Math.random()-0.5)*200;
-      const s = createPhotoSprite('images/frame.png', 1.0 + Math.random()*2.6);
-      s.position.set(px, py, pz);
-      s.material.opacity = 0.95 - Math.random()*0.5;
-      scene.add(s);
-    }
+
 
     // ====== Simple animation helpers ======
     const clock = new THREE.Clock();
@@ -296,4 +287,5 @@
 
   </script>
 </body>
+
 </html>
