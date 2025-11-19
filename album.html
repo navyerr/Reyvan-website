@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en"> 
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- ==================================
+                   custom CSS
+    ==================================== -->
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <!-- ==================================
+                   Remix Icons
+    ==================================== -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <style>
+      /* Bagian gallery */
+        gallery-container {
+    padding-top: 100px;
+    width: 85%;
+    margin: 0 auto;
+    background-color: rgba(0, 0, 0, 0.8); /* Latar belakang menyatu */
+    border-radius: 10px; /* Tambahkan pembulatan sudut pada container */
+    padding: 20px;
+       }
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 15px; /* Jarak antar gambar */
+    margin-top: 20px;
+}
+
+.gallery img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 10px; /* Membulatkan sudut gambar */
+    box-shadow: 0 5px 6px rgb(255, 192, 203); /* Efek bayangan untuk memperjelas batas gambar */
+    transition: transform 0.3s ease-in-out;
+}
+
+.gallery img:hover {
+    transform: scale(1.05); /* Efek zoom saat hover */
+}
+    </style>
+    <title>ALBUM</title>
+  </head>
+  <body>
+    <!-- ==================================
+                    NAVBAR
+    ==================================== -->
+    <nav>
+      <div class="container nav-container">
+        <a href="micin.html" class="logo">REY<span>DEV</span></a>
+        <ul class="navlist">
+          <li><a href="micin.html">HOME</a></li>
+          <li><a href="album.html">ALBUM</a></li>
+          <li><a href="series.html">SERIES</a></li>
+          <li><a href="puisi.html">PUISI</a></li>
+          <li><a href="lagu.html">PLAYLIST</a></li>
+          <li><a href="#contact">NOVEL</a></li>
+        </ul>
+        <div class="nav-icons">
+          <div id="theme-btn" class="ri-moon-line"></div>
+          <div id="menu-btn" class="ri-menu-line"></div>
+        </div>
+      </div>
+    </nav>
+    
+    <div class="gallery-container">
+        <h1>Album Shandra Nabila</h1>
+        <div class="gallery">
+            <img alt="Image of person 1" src="Foto/img1.jpeg" />
+            <img alt="Image of person 2" src="Foto/img2.jpeg" />
+            <img alt="Image of person 3" src="Foto/img3.jpeg" />
+            <img alt="Image of person 4" src="Foto/img4.jpeg" />
+            <img alt="Image of person 5" src="Foto/img5.jpeg" />
+            <img alt="Image of person 6" src="Foto/img6.jpeg" />
+            <img alt="Image of person 7" src="Foto/img7.jpeg" />
+            <img alt="Image of person 8" src="Foto/img8.jpeg" />
+            <img alt="Image of person 9" src="Foto/img9.jpeg" />
+            <img alt="Image of person 10" src="Foto/img10.jpeg" />
+            <img alt="Image of person 11" src="Foto/img11.jpeg" />
+            <img alt="Image of person 12" src="Foto/img12.jpeg" />
+            <img alt="Image of person 1" src="Foto/img13.jpeg" />
+            <img alt="Image of person 2" src="Foto/img35.jpg" />
+            <img alt="Image of person 3" src="Foto/img27.jpeg" />
+            <img alt="Image of person 4" src="Foto/img25.jpg" />
+            <img alt="Image of person 5" src="Foto/img34.jpg" />
+            <img alt="Image of person 6" src="Foto/img28.jpeg" />
+            <img alt="Image of person 7" src="Foto/img30.jpg" />
+            <img alt="Image of person 8" src="Foto/img20.jpg" />
+            <img alt="Image of person 9" src="Foto/img31.jpg" />
+            <img alt="Image of person 10" src="Foto/img22.jpg" />
+            <img alt="Image of person 11" src="Foto/img23.jpg" />
+            <img alt="Image of person 12" src="Foto/img18.jpg" />
+        </div>
+    </div>
+
+   <div class="copyright">
+    <p>Copyright &copy; 2024 by rey | All right Reserved.</p>
+   </div>
+
+</script>
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+    <!-- ==================================
+                   custom Js
+    ==================================== -->
+    <script src="assets/js/script.js"></script>
+
+    
+  </body>
+</html>

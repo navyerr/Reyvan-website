@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en"> 
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- ==================================
+                   custom CSS
+    ==================================== -->
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <!-- ==================================
+                   Remix Icons
+    ==================================== -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <style>
+      /* ==== PLAYLIST SPOTIFY GRID ==== */
+
+.playlist-section {
+    padding: 120px 5% 50px;
+    color: var(--text-color);
+}
+
+.playlist-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 25px;
+}
+
+.playlist-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 25px;
+}
+
+/* CARD */
+.song-card {
+    position: relative;
+    background: var(--nav-bg);
+    border-radius: 12px;
+    padding: 15px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.song-card:hover {
+    transform: translateY(-5px);
+    background: rgba(255,255,255,0.15);
+}
+
+/* COVER IMAGE */
+.cover {
+    width: 100%;
+    height: 170px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 12px;
+}
+
+/* TEXT */
+.card-info h4 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.card-info p {
+    font-size: 0.85rem;
+    opacity: 0.8;
+    margin: 3px 0 0;
+}
+
+/* PLAY BUTTON FLOATING */
+.play-btn {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: 48px;
+    height: 48px;
+    background: #1db954; /* Spotify Green */
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    color: white;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: 0.3s ease;
+}
+
+.song-card:hover .play-btn {
+    opacity: 1;
+    transform: translateY(0);
+}
+/* ===== PLAYER BAR ===== */
+.player-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 90px;
+    background: #ffffff6a;
+    box-shadow: 0 -3px 20px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 25px;
+    z-index: 5000;
+}
+
+/* left */
+.player-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.player-cover {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+/* center */
+.player-center {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 40%;
+}
+
+.player-center button {
+    background: none;
+    border: none;
+    font-size: 1.7rem;
+    cursor: pointer;
+}
+
+#progressBar {
+    width: 60%;
+}
+
+
+    </style>
+    <title>PLAYLIST</title>
+  </head>
+  <body>
+    <!-- ==================================
+                    NAVBAR
+    ==================================== -->
+    <nav>
+      <div class="container nav-container">
+        <a href="micin.html" class="logo">REY<span>DEV</span></a>
+        <ul class="navlist">
+          <li><a href="micin.html">HOME</a></li>
+          <li><a href="album.html">ALBUM</a></li>
+          <li><a href="series.html">SERIES</a></li>
+          <li><a href="puisi.html">PUISI</a></li>
+          <li><a href="lagu.html">PLAYLIST</a></li>
+          <li><a href="novel.html">NOVEL</a></li>
+        </ul>
+        <div class="nav-icons">
+          <div id="theme-btn" class="ri-moon-line"></div>
+          <div id="menu-btn" class="ri-menu-line"></div>
+        </div>
+      </div>
+    </nav>
+    
+<!-- ============ SPOTIFY PLAYER BAR ============ -->
+<div class="player-bar" id="playerBar">
+    <div class="player-left">
+        <img src="Foto/musik.png" id="playerCover" class="player-cover">
+        <div>
+            <h4 id="playerTitle">Tidak ada lagu</h4>
+            <p id="playerArtist">—</p>
+        </div>
+    </div>
+
+    <div class="player-center">
+        <button id="prevBtn"><i class="ri-skip-back-fill"></i></button>
+        <button id="playPauseBtn"><i class="ri-play-fill"></i></button>
+        <button id="nextBtn"><i class="ri-skip-forward-fill"></i></button>
+
+        <input type="range" id="progressBar" value="0">
+    </div>
+
+    <audio id="audioPlayer"></audio>
+</div>
+
+
+<section class="playlist-section">
+    <h2 class="playlist-title">My Playlist</h2>
+
+    <div class="playlist-grid">
+
+    <div class="song-card" data-url="Lagu/kitaUsahakanRumahItu.mp3">
+        <img src="Foto/RumahItu.jpeg" class="cover">
+        <div class="card-info"><h4>Kita Usahakan Rumah Itu</h4><p>Sal Priadi</p></div>
+        <button class="play-btn"><i class="ri-play-fill"></i></button>
+    </div>
+
+    <div class="song-card" data-url="Lagu/seasons.mp3">
+        <img src="Foto/seasons.jpeg" class="cover">
+        <div class="card-info"><h4>Seasons</h4><p>Wave To Earth</p></div>
+        <button class="play-btn"><i class="ri-play-fill"></i></button>
+    </div>
+
+    <div class="song-card" data-url="Lagu/suratcinta.mp3">
+        <img src="Foto/suratcinta.jpg" class="cover">
+        <div class="card-info"><h4>Surat Cinta Untuk Starla</h4><p>Virgoun</p></div>
+        <button class="play-btn"><i class="ri-play-fill"></i></button>
+    </div>
+
+    <div class="song-card" data-url="Lagu/Blue Jeans.mp3">
+        <img src="Foto/bluejeans.jpg" class="cover">
+        <div class="card-info"><h4>Blue Jeans</h4><p>Gangga</p></div>
+        <button class="play-btn"><i class="ri-play-fill"></i></button>
+    </div>
+
+    <div class="song-card" data-url="Lagu/tempat pulang.mp3">
+        <img src="Foto/Al2.jpg" class="cover">
+        <div class="card-info"><h4>Tempat Pulang</h4><p>Al</p></div>
+        <button class="play-btn"><i class="ri-play-fill"></i></button>
+    </div>
+
+    <div class="song-card" data-url="Lagu/kamu yang menenangkan.mp3">
+        <img src="Foto/Al1.jpg" class="cover">
+        <div class="card-info"><h4>Yang Menenangkan</h4><p>Al</p></div>
+        <button class="play-btn"><i class="ri-play-fill"></i></button>
+    </div>
+
+    <div class="song-card" data-url="Lagu/bukti.mp3">
+        <img src="Foto/bukti.jpg" class="cover">
+        <div class="card-info"><h4>Bukti</h4><p>Virgoun</p></div>
+        <button class="play-btn"><i class="ri-play-fill"></i></button>
+    </div>
+
+    <div class="song-card" data-url="Lagu/drunk text.mp3">
+        <img src="Foto/drunktext.jpeg" class="cover">
+        <div class="card-info"><h4>Drunk Text</h4><p>Henry Moodie</p></div>
+        <button class="play-btn"><i class="ri-play-fill"></i></button>
+    </div>
+
+    <div class="song-card" data-url="Lagu/if u could see me cryin' in my room.mp3">
+        <img src="Foto/ifucould.jpeg" class="cover">
+        <div class="card-info"><h4>If u could see me cryin' in my room</h4><p>Arash</p></div>
+        <button class="play-btn"><i class="ri-play-fill"></i></button>
+    </div>
+
+    <div class="song-card" data-url="Lagu/Iris.mp3">
+        <img src="Foto/iris.png" class="cover">
+        <div class="card-info"><h4>Iris</h4><p>Goo Goo Dolls</p></div>
+        <button class="play-btn"><i class="ri-play-fill"></i></button>
+    </div>
+
+    <div class="song-card" data-url="Lagu/Kau Rumahku.mp3">
+        <img src="Foto/kaurumah.jpeg" class="cover">
+        <div class="card-info"><h4>Kau Rumahku</h4><p>Raissa Anggiani</p></div>
+        <button class="play-btn"><i class="ri-play-fill"></i></button>
+    </div>
+
+    <div class="song-card" data-url="Lagu/Mesra-mesraannya kecil-kecilan dulu.mp3">
+        <img src="Foto/kecilkecilan.jpg" class="cover">
+        <div class="card-info"><h4>Mesra-mesraannya kecil-kecilan dulu</h4><p>Sal Priadi</p></div>
+        <button class="play-btn"><i class="ri-play-fill"></i></button>
+    </div>
+
+    <div class="song-card" data-url="Lagu/Nobody Gets Me.mp3">
+        <img src="Foto/nobody.jpeg" class="cover">
+        <div class="card-info"><h4>Nobody Gets Me</h4><p>SZA</p></div>
+        <button class="play-btn"><i class="ri-play-fill"></i></button>
+    </div>
+
+    <div class="song-card" data-url="Lagu/Old Love.mp3">
+        <img src="Foto/oldlove.jpeg" class="cover">
+        <div class="card-info"><h4>Old Love</h4><p>Yuji</p></div>
+        <button class="play-btn"><i class="ri-play-fill"></i></button>
+    </div>
+
+    <div class="song-card" data-url="Lagu/Remaja.mp3">
+        <img src="Foto/Remaja.jpeg" class="cover">
+        <div class="card-info"><h4>Remaja</h4><p>HiVi</p></div>
+        <button class="play-btn"><i class="ri-play-fill"></i></button>
+    </div>
+
+    <div class="song-card" data-url="Lagu/Sempurna.mp3">
+        <img src="Foto/sempurna.jpeg" class="cover">
+        <div class="card-info"><h4>Sempurna</h4><p>Andra</p></div>
+        <button class="play-btn"><i class="ri-play-fill"></i></button>
+    </div>
+
+    <div class="song-card" data-url="Lagu/SomeoneLikeYou.mp3">
+        <img src="Foto/someonelikeu.jpeg" class="cover">
+        <div class="card-info"><h4>Someone Like You</h4><p>Adele</p></div>
+        <button class="play-btn"><i class="ri-play-fill"></i></button>
+    </div>
+
+    <div class="song-card" data-url="Lagu/About You.mp3">
+        <img src="Foto/aboutu.webp" class="cover">
+        <div class="card-info"><h4>About You</h4><p>The 1975</p></div>
+        <button class="play-btn"><i class="ri-play-fill"></i></button>
+    </div>
+
+    <div class="song-card" data-url="Lagu/Always.mp3">
+        <img src="Foto/always.jpeg" class="cover">
+        <div class="card-info"><h4>Always</h4><p>Daniel Caesar</p></div>
+        <button class="play-btn"><i class="ri-play-fill"></i></button>
+    </div>
+
+    <div class="song-card" data-url="Lagu/Best Part.mp3">
+        <img src="Foto/bestpart.jpg" class="cover">
+        <div class="card-info"><h4>Best Part</h4><p>Daniel Caesar</p></div>
+        <button class="play-btn"><i class="ri-play-fill"></i></button>
+    </div>
+
+
+    <div class="song-card" data-url="Lagu/Just The Way You Are.mp3">
+        <img src="Foto/JustTheWay.jpg" class="cover">
+        <div class="card-info"><h4>Just The Way You Are</h4><p>Bruno Mars</p></div>
+        <button class="play-btn"><i class="ri-play-fill"></i></button>
+    </div>
+
+    <div class="song-card" data-url="Lagu/Die For You.mp3">
+        <img src="Foto/DieForYou.png" class="cover">
+        <div class="card-info"><h4>Die For You</h4><p>The Weekend</p></div>
+        <button class="play-btn"><i class="ri-play-fill"></i></button>
+    </div>
+
+    <div class="song-card" data-url="Lagu/Exile.mp3">
+        <img src="Foto/exile.jpeg" class="cover">
+        <div class="card-info"><h4>exile</h4><p>Taylor Swift</p></div>
+        <button class="play-btn"><i class="ri-play-fill"></i></button>
+    </div>
+
+    <div class="song-card" data-url="Lagu/Stranger.mp3">
+        <img src="Foto/stranger.jpg" class="cover">
+        <div class="card-info"><h4>Stranger</h4><p>Olivia Rodrigo</p></div>
+        <button class="play-btn"><i class="ri-play-fill"></i></button>
+    </div>
+
+    <div class="song-card" data-url="Lagu/La La Lost You.mp3">
+        <img src="Foto/lalalost.jpeg" class="cover">
+        <div class="card-info"><h4>La La Lost You</h4><p>Niki</p></div>
+        <button class="play-btn"><i class="ri-play-fill"></i></button>
+    </div>
+
+    <div class="song-card" data-url="Lagu/On Bended Knee.mp3">
+        <img src="Foto/OnBendedKneeB2M.jpg" class="cover">
+        <div class="card-info"><h4>On Bended Knee</h4><p>Boyz ll Men</p></div>
+        <button class="play-btn"><i class="ri-play-fill"></i></button>
+    </div>
+
+    <div class="song-card" data-url="Lagu/BercintaLewatKata.mp3">
+        <img src="Foto/bercintalewatkata.jpeg" class="cover">
+        <div class="card-info"><h4>Bercinta Lewat Kata</h4><p>Donne Maula</p></div>
+        <button class="play-btn"><i class="ri-play-fill"></i></button>
+    </div>
+
+    <div class="song-card" data-url="Lagu/PlutoProject.mp3">
+        <img src="Foto/pluto.jpg" class="cover">
+        <div class="card-info"><h4>Pluto Projector</h4><p>Rex Orange Counntry</p></div>
+        <button class="play-btn"><i class="ri-play-fill"></i></button>
+    </div>
+
+    <div class="song-card" data-url="Lagu/Atlantis.mp3">
+        <img src="Foto/atlantis.jpg" class="cover">
+        <div class="card-info"><h4>Atlantis</h4><p>Seafret</p></div>
+        <button class="play-btn"><i class="ri-play-fill"></i></button>
+    </div>
+
+    <div class="song-card" data-url="Lagu/Cloud 9.mp3">
+        <img src="Foto/cloud 9.jpeg" class="cover">
+        <div class="card-info"><h4>Cloud 9</h4><p>Beach Bunny</p></div>
+        <button class="play-btn"><i class="ri-play-fill"></i></button>
+    </div>
+
+<div class="song-card" data-url="Lagu/Autumn.mp3">
+        <img src="Foto/autumn.jpg" class="cover">
+        <div class="card-info"><h4>Autumn</h4><p>NIKI</p></div>
+        <button class="play-btn"><i class="ri-play-fill"></i></button>
+    </div>
+
+    <div class="song-card" data-url="Lagu/dejavu.mp3">
+        <img src="Foto/dejavu.png" class="cover">
+        <div class="card-info"><h4>deja vu</h4><p>Olivia Rodrigo</p></div>
+        <button class="play-btn"><i class="ri-play-fill"></i></button>
+    </div>
+
+    <div class="song-card" data-url="Lagu/Secukupnya.mp3">
+        <img src="Foto/secukupnya.jpg" class="cover">
+        <div class="card-info"><h4>Secukupnya</h4><p>Hindia</p></div>
+        <button class="play-btn"><i class="ri-play-fill"></i></button>
+    </div>
+
+    <div class="song-card" data-url="Lagu/JadiKekasihKuSaja.mp3">
+        <img src="Foto/kekasihkusaja.jpeg" class="cover">
+        <div class="card-info"><h4>Jadi Kekasihku Saja</h4><p>Keisya Levronaka</p></div>
+        <button class="play-btn"><i class="ri-play-fill"></i></button>
+    </div>
+
+    <div class="song-card" data-url="Lagu/Love In The Dark.mp3">
+        <img src="Foto/loveinthedark.jpg" class="cover">
+        <div class="card-info"><h4>Love In The Dark</h4><p>Adele</p></div>
+        <button class="play-btn"><i class="ri-play-fill"></i></button>
+    </div>
+
+    <div class="song-card" data-url="Lagu/Wildflower.mp3">
+        <img src="Foto/wildflower.jpg" class="cover">
+        <div class="card-info"><h4>WILDFLOWER</h4><p>Billie Eilish</p></div>
+        <button class="play-btn"><i class="ri-play-fill"></i></button>
+    </div>
+
+    <div class="song-card" data-url="Lagu/YouAreEnought.mp3">
+        <img src="Foto/yae.jpeg" class="cover">
+        <div class="card-info"><h4>You Are Enough</h4><p>Sleeping At Last</p></div>
+        <button class="play-btn"><i class="ri-play-fill"></i></button>
+    </div>
+
+    <div class="song-card" data-url="Lagu/Heather.mp3">
+        <img src="Foto/heather.jpeg" class="cover">
+        <div class="card-info"><h4>Heather</h4><p>Conan Gray</p></div>
+        <button class="play-btn"><i class="ri-play-fill"></i></button>
+    </div>
+
+    <div class="song-card" data-url="Lagu/NightChange.mp3">
+        <img src="Foto/nightchanges.png" class="cover">
+        <div class="card-info"><h4>Night Changes</h4><p>One Direction</p></div>
+        <button class="play-btn"><i class="ri-play-fill"></i></button>
+    </div>
+
+    <div class="song-card" data-url="Lagu/Dandelions.mp3">
+        <img src="Foto/dandelions.jpg" class="cover">
+        <div class="card-info"><h4>Dandelions</h4><p>Ruth B.</p></div>
+        <button class="play-btn"><i class="ri-play-fill"></i></button>
+    </div>
+
+</div>
+    </div>
+</section>
+    </div>
+</section>
+</div>
+</div>
+        </div>
+   <div class="copyright">
+    <p>Copyright &copy; 2024 by rey | All right Reserved.</p>
+   </div>
+<audio id="audioPlayer"></audio>
+<script>
+const audio = document.getElementById("audioPlayer");
+const playPauseBtn = document.getElementById("playPauseBtn");
+const nextBtn = document.getElementById("nextBtn");
+const prevBtn = document.getElementById("prevBtn");
+const progressBar = document.getElementById("progressBar");
+
+const playerTitle = document.getElementById("playerTitle");
+const playerArtist = document.getElementById("playerArtist");
+const playerCover = document.getElementById("playerCover");
+
+let currentIndex = 0;
+let shuffle = false;
+
+/* ==========================================
+      DYNAMIC PLAYLIST FROM SONG CARDS
+========================================== */
+const playlist = Array.from(document.querySelectorAll(".song-card")).map(card => ({
+    title: card.querySelector("h4").textContent,
+    artist: card.querySelector("p").textContent,
+    url: card.dataset.url,
+    cover: card.querySelector("img").src
+}));
+
+// CLICK CARD
+document.querySelectorAll(".song-card").forEach((card, index) => {
+    card.addEventListener("click", () => playSong(index));
+    card.querySelector(".play-btn").addEventListener("click", (e) => {
+        e.stopPropagation();
+        playSong(index);
+    });
+});
+
+/* ==========================================
+               PLAY SONG
+========================================== */
+function playSong(index) {
+    currentIndex = index;
+    const song = playlist[index];
+
+    audio.src = song.url;
+    audio.play();
+
+    playerTitle.textContent = song.title;
+    playerArtist.textContent = song.artist;
+    playerCover.src = song.cover;
+
+    playPauseBtn.innerHTML = `<i class='ri-pause-fill'></i>`;
+}
+
+/* ==========================================
+               PROGRESS BAR
+========================================== */
+audio.addEventListener("timeupdate", () => {
+    if (audio.duration) {
+        progressBar.value = (audio.currentTime / audio.duration) * 100;
+    }
+});
+
+progressBar.addEventListener("input", () => {
+    audio.currentTime = (progressBar.value / 100) * audio.duration;
+});
+
+/* ==========================================
+               PLAY / PAUSE
+========================================== */
+playPauseBtn.addEventListener("click", () => {
+    if (audio.paused) {
+        audio.play();
+        playPauseBtn.innerHTML = `<i class='ri-pause-fill'></i>`;
+    } else {
+        audio.pause();
+        playPauseBtn.innerHTML = `<i class='ri-play-fill'></i>`;
+    }
+});
+
+/* ==========================================
+               SHUFFLE BUTTON
+========================================== */
+
+// Create shuffle button
+const shuffleBtn = document.createElement("button");
+shuffleBtn.innerHTML = `<i class='ri-shuffle-fill'></i>`;
+shuffleBtn.style.fontSize = "1.6rem";
+shuffleBtn.style.background = "none";
+shuffleBtn.style.border = "none";
+shuffleBtn.style.cursor = "pointer";
+shuffleBtn.style.marginLeft = "10px";
+
+// insert ke player
+document.querySelector(".player-center").appendChild(shuffleBtn);
+
+// toggle shuffle
+shuffleBtn.addEventListener("click", () => {
+    shuffle = !shuffle;
+    shuffleBtn.style.color = shuffle ? "#1db954" : "white";  // warna hijau kalau aktif
+});
+
+/* ==========================================
+         FUNGSI AMBIL INDEX RANDOM
+========================================== */
+function randomSongIndex() {
+    let next;
+    do {
+        next = Math.floor(Math.random() * playlist.length);
+    } while (next === currentIndex);
+    return next;
+}
+
+/* ==========================================
+               NEXT / PREV FIXED
+========================================== */
+nextBtn.addEventListener("click", () => {
+    if (shuffle) {
+        currentIndex = randomSongIndex();
+    } else {
+        currentIndex = (currentIndex + 1) % playlist.length;
+    }
+    playSong(currentIndex);
+});
+
+prevBtn.addEventListener("click", () => {
+    if (shuffle) {
+        currentIndex = randomSongIndex();
+    } else {
+        currentIndex = (currentIndex - 1 + playlist.length) % playlist.length;
+    }
+    playSong(currentIndex);
+});
+
+/* ==========================================
+        AUTO NEXT SAAT LAGU HABIS
+========================================== */
+audio.addEventListener("ended", () => {
+    if (shuffle) {
+        currentIndex = randomSongIndex();
+    } else {
+        currentIndex = (currentIndex + 1) % playlist.length;
+    }
+    playSong(currentIndex);
+});
+</script>
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+    <!-- ==================================
+                   custom Js
+    ==================================== -->
+    <script src="assets/js/script.js"></script>
+
+    
+  </body>
+</html>

@@ -1,394 +1,326 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+<html lang="en"> 
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- ==================================
+                   custom CSS
+    ==================================== -->
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <!-- ==================================
+                   Remix Icons
+    ==================================== -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
     <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            color: white;
-            background-color: black;
-            height: 100%;
-        }
+    
 
-        .header img {
-            height: 30px;
-        }
-
-        .header nav {
-            margin-left: 20px;
-        }
-
-        .container {
-    position: relative;
-    text-align: left;
-    color: pink;
-        }
-
-        .background-image {
-            width: 100%;
-            height: 100vh;
-            object-fit: cover;
-            filter: brightness(50%);
-        }
-
-        .content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 80%;
-    text-align: left;
-        }
-
-        .content h1 {
-            font-size: 2.5em;
-            margin: 0;
-        }
-
-        .content p {
-            font-size: 1.2em;
-            margin: 10px 0;
-        }
-
-        .buttons {
-            margin-top: 20px;
-        }
-
-        .button {
-            display: inline-block;
-            padding: 10px 20px;
-            margin-right: 10px;
-            border: none;
-            border-radius: 5px;
-            background-color: rgba(255, 255, 255, 0.2);
-            color: white;
-            font-size: 1em;
-            cursor: pointer;
-        }
-
-        .button:hover {
-            background-color: rgba(255, 255, 255, 0.4);
-        }
-
-        .navbar {
-            position: absolute;
-            top: 0;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.5);
-        }
-
-        .navbar a {
-            color: pink;
-            text-decoration: none;
-            margin: 0 15px;
-            font-size: 1em;
-            position: relative;
-            transition: color 0.3s, transform: 0.2s ;
-        }
-
-        .navbar a:hover {
-            color: #E50914; /* Highlight color */
-            background-color: rgba(255, 255, 255, 0.2); /* Background on hover */
-            padding: 5px 10px; /* Add padding on hover */
-            border-radius: 5px;
-            transform: scale(1.05); /* Zoom effect */
-        }
-
-        .logo {
-            font-size: 1.5em;
-            font-weight: bold;
-        }
-
-        /* Bagian gallery */
-        gallery-container {
-    padding-top: 100px;
-    width: 85%;
-    margin: 0 auto;
-    background-color: rgba(0, 0, 0, 0.8); /* Latar belakang menyatu */
-    border-radius: 10px; /* Tambahkan pembulatan sudut pada container */
-    padding: 20px;
-       }
-.gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 15px; /* Jarak antar gambar */
-    margin-top: 20px;
+.fav-icon {
+    width: 80px;
+    height: 70px;
+    object-fit: contain;
+    margin-bottom: 15px;
+    display: block;
 }
 
-.gallery img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    border-radius: 10px; /* Membulatkan sudut gambar */
-    box-shadow: 0 5px 6px rgb(255, 192, 203); /* Efek bayangan untuk memperjelas batas gambar */
-    transition: transform 0.3s ease-in-out;
-}
 
-.gallery img:hover {
-    transform: scale(1.05); /* Efek zoom saat hover */
-}
-
-        /* Tambahkan jarak antara konten dan navbar */
-        .content-container {
-            margin-top: 80px; /* Jarak agar tidak tertutup oleh navbar */
-        }
-        .content {
-    background-color: rgba(0, 0, 0, 0.7); /* Blend with background */
-    padding: 20px;
-    border-radius: 10px; /* Matching rounded corners */
-    max-width: 1200px; /* Optional: control width */
-    margin: auto;
-}
-/* Container Tombol */
-.play-button-container {
-    display: flex;
-    gap: 10px;
-    margin-top: 20px;
-    align-items: center;
-}
-
-/* Tombol Play */
-.play-button, .more-Info-button {
-    background-color: #E50914;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    font-weight: bold;
-    border-radius: 5px;
-    cursor: pointer;
-    margin: 5px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
-}
-
-.play-button:hover, .more-Info-button:hover {
-    background-color: #b20710;
-    transform: scale(1.05);
-}
-
-#main-content {
-    text-align: center;
-    padding: 20px;
-}
-
-h2 {
-    color: #ff00ff;
-    font-size: 24px;
-    margin-top: 20px;
-}
-
-/* Tombol More Info */
-.play-button, .more-Info-button {
-            padding: 10px 20px;
-            font-size: 16px;
-            font-weight: bold;
-            border-radius: 5px;
-            cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-            transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
-        }
-
-}
-.play-button {
-            background-color: #E50914;
-            color: white;
-        }
-
-.more-Info-button {
-            background-color: rgba(255, 255, 255, 0.7);
-            color: black;
-        }
-
-.more-Info-button:hover {
-    background-color: rgba(255, 255, 255, 0.9); /* Sedikit lebih cerah saat hover */
-    transform: scale(1.05); /* Efek sedikit membesar saat hover */
-}
-
-        /* Second Section */
-        #second-section, #Info-section {
-            position: absolute;
-            top: 15%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80%;
-            max-width: 800px;
-            background-color: rgba(0, 0, 0, 0.85);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-            display: none;
-        }
-
-        #second-section-content, #Info-section-content {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        #second-section img, #Info-section img {
-            width: 50%;
-            border-radius: 8px;
-        }
-
-        #second-section .text-content, #Info-section .text-content {
-            width: 50%;
-            color: white;
-        }
-
-        #closeButton, #closeInfobutton {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: transparent;
-            color: white;
-            font-size: 1.2em;
-            border: none;
-            cursor: pointer;
-        }
     </style>
-</head>
-<body>
-    <iframe src="lagu.html" style="display: none;"></iframe>
-    <div class="container">
-        <img alt="Asha Cantik" class="background-image" src="bacground.jpeg" />
-        <div class="navbar">
-            <div class="logo">NETFLIX</div>
-            <div>
-                <a href="micin.html">Home</a>
-                <a href="series.html">Series</a>
-                <a href="Puisi.html">Puisi</a>
-                <a href="lagu.html">Playlist musik</a>
-            </div>
+    <title>SHANDRA WEBSITE</title>
+  </head>
+  <body>
+    <!-- ==================================
+                    NAVBAR
+    ==================================== -->
+    <nav>
+      <div class="container nav-container">
+        <a href="micin.html" class="logo">REY<span>DEV</span></a>
+        <ul class="navlist">
+          <li><a href="micin.html">HOME</a></li>
+          <li><a href="album.html">ALBUM</a></li>
+          <li><a href="series.html">SERIES</a></li>
+          <li><a href="puisi.html">PUISI</a></li>
+          <li><a href="lagu.html">PLAYLIST</a></li>
+          <li><a href="novel.html">NOVEL</a></li>
+        </ul>
+        <div class="nav-icons">
+          <div id="theme-btn" class="ri-moon-line"></div>
+          <div id="menu-btn" class="ri-menu-line"></div>
         </div>
-        <audio id="audioPlayer" src="bukti.mp3"></audio>
-        <div class="content-container">
-            <div class="content">
-                <h1>I don't know how to say Happy Birthday romantically.</h1>
-                <p>But this is how Reyvan is, someone who may be ordinary that you once knew, someone who will always love you.
-                    With you, time feels brief,  
-                    like the wind carrying warm relief.  
-                    No words needed, just a gaze,  
-                    you are my home, where my heart always stays. But for now, this is how I wish Shandra Nabila a happy birthday.</p>
-                <p>Click "Play" to see Details</p>
-                <div id="main-content">
-                    <div id="welcome-section">
-                        <div class="play-button-container">
-                            <button class="play-button" id="playButton"><i class="fas fa-play"></i> play </button>
-                            <button class="more-Info-button" id="moreInfobutton"><i class="fas fa-info-circle"></i> More Info</button>
-                        </div>
-                    </div>
+      </div>
+    </nav>
+    <!-- ==================================
+                  HOME SECTION
+    ==================================== -->
+    <section class="home" id="home">
+      <div class="container home-container">
+        <div class="left">
+          <h3>Website Kecil Tentang Kamu </h3>
+          <h1><span>Shandra Nabila</span></h1>
+          <!-- you can edit `multiple-text` into ( /assets/js/script.js ), then search and edit `strings` in TYPED Js  -->
+          <h3>Orang yang Aku <span class="multiple-text"></span></h3>
+          <p>
+            Ini ruang kecil yang aku buat khusus untuk kamu.
+            Tempat di mana setiap kenangan tentangmu tinggal,
+            setiap rindu aku simpan,
+            dan setiap hal kecil tentangmu terasa berarti.
+            Aku naruh kata-kata, foto, dan lagu di sini
+            supaya kamu bisa ngerasain lagi
+            betapa berharganya kamu buat aku.
+            Semoga website kecil ini jadi pengingat lembut
+            bahwa kamu selalu punya rumah di hatiku.
+          </p>
+          <div class="social-icons-container">
+            <div class="social-icons">
+              <a href="https://www.instagram.com/shandramyone"><i class="ri-instagram-line"></i></a>
+              <a href="https://open.spotify.com/playlist/5NjB39Be22vqLKKpA16myi?si=7599866c5010442e"><i class="ri-spotify-line"></i></a>
+              <a href=""><i class="ri-chrome-line"></i></a>
+              <a href=""><i class="ri-youtube-line"></i></a>
+            </div>
+            <button class="btn overlay" id="btn" onclick="location.href='birthday.html'">
+    <span>Klik me</span>
+</button>
+
+            
+          </div>
+        </div>
+        <div class="right">
+          <!-- add your home or profile photo in src from assets/images/  -->
+          <img src="Foto/img15.jpg" alt="" />
+        </div>
+      </div>
+    </section>
+    <!-- ==================================
+                  ABOUT SECTION
+    ==================================== -->
+    <section class="about" id="about">
+      <div class="container about-container">
+        <div class="left">
+          <!-- add your photo in src for About page from assets/images/ -->
+          <img src="Foto/img5.jpeg" alt="" />
+        </div>
+        <div class="right">
+          <div class="title">
+            <h2>About <span>You</span></h2>
+          </div>
+          <h3>
+            Shandra Nabila — 06 November 2006
+          </h3>
+          <p>
+            Seseorang yang dikenal melalui ketenangannya,
+            dengan ketertarikan sederhana pada rasa pedas, matcha,
+            serta kekaguman pada Haechan.
+            Di balik sikapnya yang lembut,
+            tersimpan karakter yang kuat dan tulus.
+            Ia hadir dengan cara yang tidak berlebihan,
+            namun meninggalkan kesan yang bertahan lebih lama daripada kata-kata.
+          </p>
+          <div class="container">
+            <div class="progress-bar">
+              <div class="outer-circle">
+                <div class="inner-circle">
+                  <div class="html-number number">
+                    <h4>CANTIK</h4>
+                  </div>
                 </div>
+              </div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                version="1.1"
+                width="160px"
+                height="160px"
+              >
+                <defs>
+                  <linearGradient id="GradientColor">
+                    <stop offset="0%" stop-color="#9b2fff" />
+                    <stop offset="100%" stop-color="#ff2f48" />
+                  </linearGradient>
+                </defs>
+                <circle cx="80" cy="80" r="70" stroke-linecap="round" />
+              </svg>
             </div>
-        </div>
-
-        <div id="second-section">
-            <button id="closeButton">&times;</button>
-            <div id="second-section-content">
-                <img src="img13.jpeg" alt="Second Image">
-                <div class="text-content">
-                    <h2>Selamat ulang tahun, micinn! 🎂💫</h2>
-                    <p>Di hari yang indah ini, aku ingin mendoakan segalanya yang terbaik untukmu. Semoga kamu selalu dikelilingi cinta, kebahagiaan, dan ketenangan dalam setiap langkahmu. Kamu pantas mendapatkan yang terbaik, bukan hanya hari ini tapi setiap hari.
-
-                        Semoga semua impianmu perlahan menjadi nyata, dan kamu selalu diberkati dengan kesehatan serta kekuatan untuk meraihnya. Aku akan selalu di sini mendukungmu, berjalan di sampingmu, dan jadi teman yang tak pernah lelah menyemangati.
-                        
-                        Aku cinta kamu, dengan sepenuh hati. Semoga tahun ini membawa kamu lebih dekat pada semua hal yang kamu inginkan, dan lebih banyak tawa serta cerita indah yang bisa kita bagi bersama🌹💖.</p>
+            <div class="progress-bar">
+              <div class="outer-circle">
+                <div class="inner-circle">
+                  <div class="html-number number">
+                    <h4>LUCU</h4>
+                  </div>
                 </div>
+              </div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                version="1.1"
+                width="160px"
+                height="160px"
+              >
+                <defs>
+                  <linearGradient id="GradientColor">
+                    <stop offset="0%" stop-color="#9b2fff" />
+                    <stop offset="100%" stop-color="#ff2f48" />
+                  </linearGradient>
+                </defs>
+                <circle cx="80" cy="80" r="70" stroke-linecap="round" />
+              </svg>
+            </div>
+            <div class="progress-bar">
+              <div class="outer-circle">
+                <div class="inner-circle">
+                  <div class="html-number number">
+                    <h4>MANIS</h4>
+                  </div>
+                </div>
+              </div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                version="1.1"
+                width="160px"
+                height="160px"
+              >
+                <defs>
+                  <linearGradient id="GradientColor">
+                    <stop offset="0%" stop-color="#9b2fff" />
+                    <stop offset="100%" stop-color="#ff2f48" />
+                  </linearGradient>
+                </defs>
+                <circle cx="80" cy="80" r="70" stroke-linecap="round" />
+              </svg>
+            </div>
+            <div class="progress-bar">
+              <div class="outer-circle">
+                <div class="inner-circle">
+                  <div class="html-number number">
+                    <h4>NGANGENIN</h4>
+                  </div>
+                </div>
+              </div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                version="1.1"
+                width="160px"
+                height="160px"
+              >
+                <defs>
+                  <linearGradient id="GradientColor">
+                    <stop offset="0%" stop-color="#9b2fff" />
+                    <stop offset="100%" stop-color="#ff2f48" />
+                  </linearGradient>
+                </defs>
+                <circle cx="80" cy="80" r="70" stroke-linecap="round" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ==================================
+                SERVICE SECTION
+    ==================================== -->
+    <section class="services" id="services">
+      <div class="title">
+        <h2>Your <span>Favorite</span></h2>
+      </div>
+      <div class="container services-container">
+        <div class="box overlay content-1">
+         <div class="content">
+           <h2>Makanan Pedas</h2>
+           </div>
+           </div>
+        <div class="box overlay content-1">
+         <div class="content">
+           <h2>Matcha</h2>
+           </div>
+           </div>
+
+        <div class="box overlay content-1">
+          <div class="content ">
+            <h2>Haechan</h2>
+          </div>
+          </div>
+          <div class="box overlay content-2">
+            <div class="content ">
+              <h2>Warna Pink</h2>
+            </div>
+          </div>
+          <div class="box overlay content-2">
+            <div class="content ">
+              <h2>Reyvan Alfandi</h2>
+            </div>
+          </div>
+          <div class="box overlay content-2">
+            <div class="content ">
+              <h2>Barang Lucu</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+     <!-- ==================================
+                PORTFOLIO SECTION
+    ==================================== -->
+    <section class="portfolio" id="portfolio">
+        <div class="title">
+            <h2>Soft Words <span>for Soft Souls</span></h2>
+        </div>
+        <div class="container portfolio-container">
+            <div class="portfolio-buttons" >
+                <button class="btn portfolio-tab active" onclick="tabOpen('all')">
+                    MY PROMISE TO YOU</button>
+                <button class="btn portfolio-tab " onclick="tabOpen('webdevelop')">
+                    REASONS I LOVE YOU</button>
+                <button class="btn portfolio-tab " onclick="tabOpen('webdesign')">
+                    NOTES FOR YOU</button>
+            </div>
+            <div class="tab-content active-content" id="all">
+                <!-- add your image or mockup project in src for tab-content all  from assets/images/ -->
+                <div class="image"><img src="Ucapan/K1.jpg" alt=""></div>
+                <div class="image"><img src="Ucapan/K2.jpg" alt=""></div>
+                <div class="image"><img src="Ucapan/K3.jpg" alt=""></div>
+                <div class="image"><img src="Ucapan/K4.jpg" alt=""></div>
+                <div class="image"><img src="Ucapan/K5.jpg" alt=""></div>
+                <div class="image"><img src="Ucapan/K6.jpg" alt=""></div>
+                
+
+            </div>
+            <div class="tab-content" id="webdevelop">
+                <!-- add your image or mockup project in src for tab-content webdevelop from assets/images/ -->
+                <div class="image"><img src="Ucapan/P1.jpg" alt=""></div>
+                <div class="image"><img src="Ucapan/P2.jpg" alt=""></div>
+                <div class="image"><img src="Ucapan/P3.jpg" alt=""></div>
+                <div class="image"><img src="Ucapan/P4.jpg" alt=""></div>
+                <div class="image"><img src="Ucapan/P5.jpg" alt=""></div>
+                <div class="image"><img src="Ucapan/P6.jpg" alt=""></div>
+            </div>
+            <div class="tab-content" id="webdesign">
+                <!-- add your image or mockup project in src for tab-content webdesign from assets/images -->
+                <div class="image"><img src="Ucapan/3.jpg" alt=""></div>
+                <div class="image"><img src="Ucapan/4.jpg" alt=""></div>
+                <div class="image"><img src="Ucapan/5.jpg" alt=""></div>
+                <div class="image"><img src="Ucapan/6.jpg" alt=""></div>
+                <div class="image"><img src="Ucapan/8.jpg" alt=""></div>
+                <div class="image"><img src="Ucapan/9.jpg" alt=""></div>
+                <div class="image"><img src="Ucapan/10.jpg" alt=""></div>
+                <div class="image"><img src="Ucapan/11.jpg" alt=""></div>
+                <div class="image"><img src="Ucapan/12.jpg" alt=""></div>
             </div>
         </div>
+    </section>
+   <div class="copyright">
+    <p>Copyright &copy; 2024 by rey | All right Reserved.</p>
+   </div>
 
-    <div id="Info-section">
-        <button id="closeInfobutton">&times;</button>
-        <div id="Info-section-content">
-            <img src="img10.jpeg" alt="Info Image">
-            <div class="text-content">
-                <h2>Biodata Shandra Nabila</h2>
-                <p>Nama: Shandra Nabila</p>
-                Tanggal lahir: 06 November 2006
-                <p>Warna fav: pink</p>
-                Minuman fav: Macha
-                <p>Tidak suka durian</p>
-                Suka mam pedas Walaupun ada maag
-                <p>Haechan number one</p>
-            </div>
-        </div>
-    </div>
-</div>
 
-    <div class="gallery-container">
-        <h1>More to Explore: Shandra Nabila</h1>
-        <div class="gallery">
-            <img alt="Image of person 1" src="img1.jpeg" />
-            <img alt="Image of person 2" src="img2.jpeg" />
-            <img alt="Image of person 3" src="img3.jpeg" />
-            <img alt="Image of person 4" src="img4.jpeg" />
-            <img alt="Image of person 5" src="img5.jpeg" />
-            <img alt="Image of person 1" src="img6.jpeg" />
-            <img alt="Image of person 2" src="img7.jpeg" />
-            <img alt="Image of person 3" src="img8.jpeg" />
-            <img alt="Image of person 4" src="img9.jpeg" />
-            <img alt="Image of person 5" src="img10.jpeg" />
-            <img alt="Image of person 4" src="img11.jpeg" />
-            <img alt="Image of person 5" src="img12.jpeg" />
-        </div>
-    </div>
-
-    <script>
-        // Fungsi untuk membuka dan menutup Play Section
-        document.getElementById('playButton').addEventListener('click', function() {
-            document.getElementById('welcome-section').style.display = 'none';
-            document.getElementById('second-section').style.display = 'block';
-        });
-        document.getElementById('closeButton').addEventListener('click', function() {
-            document.getElementById('second-section').style.display = 'none';
-            document.getElementById('welcome-section').style.display = 'block';
-        });
-
-        // Mendapatkan elemen tombol, audio, dan konten
-        const playButton = document.getElementById('playButton');
-        const audioPlayer = document.getElementById('audioPlayer');
-        const secondSection = document.getElementById('second-section');
-        const closeButton = document.getElementById('closeButton');
-
-        // Fungsi untuk menampilkan konten dan memutar lagu
-        function playContentAndAudio() {
-            // Menampilkan konten kedua
-            secondSection.style.display = 'block';
-            secondSection.style.opacity = '1';
-
-            // Memutar lagu
-            audioPlayer.play();
-        }
-
-        // Menutup konten kedua
-        closeButton.addEventListener('click', () => {
-            secondSection.style.display = 'none';
-            audioPlayer.pause();
-            audioPlayer.currentTime = 0; // Mengatur ulang audio ke awal
-        });
-
-        // Menjalankan fungsi ketika tombol play diklik
-        playButton.addEventListener('click', playContentAndAudio);
-
-        // Fungsi untuk membuka dan menutup Info Section
-        document.getElementById('moreInfobutton').addEventListener('click', function() {
-            document.getElementById('welcome-section').style.display = 'none';
-            document.getElementById('Info-section').style.display = 'block';
-        });
-        document.getElementById('closeInfobutton').addEventListener('click', function() {
-            document.getElementById('Info-section').style.display = 'none';
-            document.getElementById('welcome-section').style.display = 'block';
-        });
-    </script>
-</body>
-
+    <!-- ==================================
+                   Scroll Reveal
+    ==================================== -->
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <!-- ==================================
+                   Typed Js
+    ==================================== -->
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+    <!-- ==================================
+                   custom Js
+    ==================================== -->
+    <script src="assets/js/script.js"></script>
+  </body>
 </html>
-

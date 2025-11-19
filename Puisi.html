@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PUISI</title>
+<!-- ==================================
+                   Remix Icons
+    ==================================== -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css"
+      rel="stylesheet">
+
+<style>
+    @import url("https://fonts.googleapis.com/css2?family=Great+Vibes&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
+/* =========================================
+   === VARIABLES (SAMA EXACT DARI STYLE.CSS) ===
+=========================================*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style: none;
+  resize: none;
+  outline: none;
+  border: none;
+}
+
+:root {
+  --color-bg: #e1e1e1;
+  --color-text: #212121;
+  --color-tertiary: #ff0485;
+
+  --shadow: 6px 6px 12px #bababa, -6px -6px 12px #ffffff;
+  --inner-shadow: inset 6px 6px 12px #bababa, inset -6px -6px 12px #ffffff;
+
+  --width-lg: 80%;
+  --width-sm: 95%;
+  --transition: all 0.4s ease-in;
+}
+
+body {
+  font-family: "Great Vibes", cursive;
+  font-family: "Rubik", sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.7;
+  height: 100vh;
+  width: 100%;
+  position: relative;
+}
+body.active {
+  --color-bg: #212121;
+  --color-text: #e0e0e0;
+  --color-tertiary: rgb(0, 110, 255);
+
+  --shadow: 0.5rem 0.5rem 1rem #111, -6px -6px 12px #333;
+  --inner-shadow: inset 0.5rem 0.5rem 1rem #111, inset -6px -6px 12px #333;
+}
+::-webkit-scrollbar {
+  width: 0.5rem;
+}
+::-webkit-scrollbar-track {
+  box-shadow: var(--inner-shadow);
+}
+::-webkit-scrollbar-thumb {
+  box-shadow: var(--shadow);
+  background: var(--color-tertiary);
+}
+img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+}
+a {
+  color: var(--color-text);
+  font-size: 0.9rem;
+}
+span,
+p {
+  font-size: 0.9rem;
+}
+h1,
+h2,
+h3,
+h4 {
+  line-height: 1.2;
+}
+h1 {
+  font-size: 2.8rem;
+}
+h2 {
+  font-size: 2.1rem;
+}
+h3 {
+  font-size: 1.5rem;
+}
+h4 {
+  font-size: 1.1rem;
+}
+.container {
+  margin: 0 auto;
+  width: var(--width-lg);
+}
+section {
+  padding: 5rem 0 3rem;
+  min-height: 100vh;
+}
+.title {
+  text-align: center;
+  margin-bottom: 6rem;
+}
+.title h2 {
+  font-size: 2.5rem;
+  display: inline-block;
+  color: var(--color-text);
+  font-weight: 300;
+}
+.title h2 span {
+  font-size: 2.5rem;
+  color: var(--color-tertiary);
+  font-weight: 900;
+}
+.btn {
+  padding: 1rem 3rem;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  background: transparent;
+  color: var(--color-text);
+  font-weight: 700;
+  border-radius: 0.5rem;
+  box-shadow: var(--shadow);
+  transition: all 0.5s ease-in-out;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  -webkit-border-radius: 0.5rem;
+  -moz-border-radius: 0.5rem;
+  -ms-border-radius: 0.5rem;
+  -o-border-radius: 0.5rem;
+}
+.btn span {
+  z-index: 1;
+  font-weight: 800;
+  letter-spacing: 0.1rem;
+}
+.btn.overlay::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: var(--color-text);
+  height: 10px;
+  width: 10px;
+  z-index: -1;
+  border-radius: 0.5rem;
+  -webkit-border-radius: 0.5rem;
+  -moz-border-radius: 0.5rem;
+  -ms-border-radius: 0.5rem;
+  -o-border-radius: 0.5rem;
+  transition: all 0.6s ease-in-out;
+  -webkit-transition: all 0.6s ease-in-out;
+  -moz-transition: all 0.6s ease-in-out;
+  -ms-transition: all 0.6s ease-in-out;
+  -o-transition: all 0.6s ease-in-out;
+  visibility: hidden;
+}
+.btn:hover {
+  color: var(--color-tertiary);
+  box-shadow: 1px 1px 10px var(--color-tertiary);
+}
+.btn.overlay:hover::after {
+  visibility: visible;
+  transform: scale(100);
+  -webkit-transform: scale(100);
+  -moz-transform: scale(100);
+  -ms-transform: scale(100);
+  -o-transform: scale(100);
+}
+.scrollbar::-webkit-scrollbar {
+  height: 0.66rem;
+}
+.scrollbar::-webkit-scrollbar-track {
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+.scrollbar::-webkit-scrollbar-thumb {
+  border-radius: 0.5rem;
+  -webkit-border-radius: 0.5rem;
+  -moz-border-radius: 0.5rem;
+  -ms-border-radius: 0.5rem;
+  -o-border-radius: 0.5rem;
+}
+.scrollbar::-webkit-scrollbar-button {
+  width: 0.8rem;
+}
+/* =========================================
+   NAVBAR
+========================================= */
+nav {
+  padding: 0.3rem 0;
+  transition: 0.3s ease-in-out;
+  -webkit-transition: 0.3s ease-in-out;
+  -moz-transition: 0.3s ease-in-out;
+  -ms-transition: 0.3s ease-in-out;
+  -o-transition: 0.3s ease-in-out;
+}
+nav.scrolling {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: var(--color-bg);
+  z-index: 11111;
+  box-shadow: var(--shadow);
+}
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.navlist {
+  display: flex;
+  gap: 2rem;
+}
+.navlist li a {
+  text-transform: capitalize;
+  font-weight: 500;
+}
+.navlist li a:hover {
+  color: var(--color-tertiary);
+}
+.logo {
+  font-weight: 700;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  box-shadow: var(--shadow);
+  border-radius: 0.5rem;
+  padding: 0.2rem 2rem;
+  background: transparent;
+  -webkit-border-radius: 0.5rem;
+  -moz-border-radius: 0.5rem;
+  -ms-border-radius: 0.5rem;
+  -o-border-radius: 0.5rem;
+}
+.logo span {
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--color-tertiary);
+}
+.logo.logo:hover {
+  color: #666;
+  box-shadow: var(--inner-shadow);
+}
+.nav-icons {
+  display: flex;
+  gap: 2rem;
+}
+.nav-icons div {
+  padding: 0.5rem 1rem;
+  margin: 0.5rem;
+  color: var(--color-text);
+  background: var(--color-bg);
+  box-shadow: var(--shadow);
+  border-radius: 0.3rem;
+  -webkit-border-radius: 0.3rem;
+  -moz-border-radius: 0.3rem;
+  -ms-border-radius: 0.3rem;
+  -o-border-radius: 0.3rem;
+  cursor: pointer;
+}
+.nav-icons div:hover {
+  color: var(--color-tertiary);
+  box-shadow: var(--inner-shadow);
+}
+#menu-btn {
+  display: none;
+}
+
+/* =========================================
+   FALLING BALLOONS / PARTICLES
+========================================= */
+.petal {
+    position: fixed;
+    top: -10px;
+    width: 12px;
+    height: 12px;
+    background: var(--color-tertiary);
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: fall 6s linear infinite;
+}
+@keyframes fall {
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(120vh) rotate(360deg); }
+}
+
+/* =========================================
+   PUISI WRAPPER (KOTAK BESAR)
+=========================================*/
+.poem-wrapper {
+    width: 70%;
+    margin: 130px auto;
+    padding: 50px;
+    background: rgba(0,0,0,0.25);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 40px rgba(0,0,0,0.3);
+}
+
+.poem-wrapper h1 {
+    text-align: center;
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--color-tertiary);
+    text-shadow: 0 0 12px var(--color-tertiary);
+}
+
+.poem-content p {
+    font-size: 1.4rem;
+    margin: 15px 0;
+    opacity: 0;
+    animation: fadeLine 0.6s forwards ease;
+}
+@keyframes fadeLine {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* =========================================
+   BUTTONS
+========================================= */
+.button-container {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+button {
+    padding: 12px 25px;
+    font-size: 1rem;
+    border-radius: 10px;
+    background: var(--color-tertiary);
+    border: none;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+}
+button:hover {
+    transform: translateY(-3px);
+    background: var(--color-text);
+    color: var(--color-bg);
+}
+
+/* =========================================
+   COPYRIGHT
+========================================= */
+.copyright {
+    text-align: center;
+    padding: 20px;
+    color: var(--color-text);
+}
+/* ======================================================
+              RESPONSIVE TABLET
+========================================================*/
+@media (max-width: 1050px) {
+  #menu-btn {
+    display: block;
+  }
+  #theme-btn {
+    margin-right: -25px;
+  }
+  .navlist {
+    flex-direction: column;
+    position: absolute;
+    top: 11rem;
+    right: 0;
+    font-size: 25px;
+    width: var(--width-lg);
+    box-shadow: var(--shadow);
+    background: var(--color-bg);
+    min-width: 300px;
+    height: 30rem;
+    text-align: center;
+    border-radius: 0.2rem;
+    -webkit-border-radius: 0.2rem;
+    -moz-border-radius: 0.2rem;
+    -ms-border-radius: 0.2rem;
+    -o-border-radius: 0.2rem;
+    padding: 2rem 0;
+    z-index: 9999999;
+    visibility: hidden;
+    opacity: 0;
+    transition: var(--transition);
+    -webkit-transition: var(--transition);
+    -moz-transition: var(--transition);
+    -ms-transition: var(--transition);
+    -o-transition: var(--transition);
+  }
+  .navlist a {
+    font-size: 20px;
+  }
+  .navlist.active {
+    top: 4rem;
+    visibility: visible;
+    opacity: 1;
+  }
+  .about-container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .about-container .left {
+    margin: auto;
+  }
+  .about-container .right {
+    text-align: center;
+  }
+  .about-container .right .title {
+    text-align: center;
+  }
+  .about .right .container {
+    gap: 2rem;
+  }
+  .services-container .box {
+    width: calc(50% - 1.5rem);
+  }
+  .portfolio-container .box {
+    width: calc(50% - 1.5rem);
+  }
+  .portfolio-container {
+    grid-template-columns: 1fr;
+  }
+  .portfolio-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+  .testimonial-container .card {
+    min-width: 50%;
+  }
+}
+/* ============= Ipad Pro 11 ====================== */
+@media (max-width: 835px) {
+  h1 {
+    font-size: 2.5rem;
+  }
+  h2 {
+    font-size: 1.8rem;
+  }
+  h3 {
+    font-size: 1.3rem;
+  }
+  p {
+    font-size: 1rem;
+  }
+  section {
+    padding: 3rem 0;
+  }
+  #menu-btn {
+    margin-right: -50px;
+  }
+  .logo {
+    margin-left: -50px;
+  }
+  .home-container {
+    grid-template-columns: 1fr;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  .home .right img {
+    max-width: 25rem;
+  }
+  .home .left {
+    text-align: center;
+  }
+  .about-container {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .about .left img {
+    max-height: 25rem;
+  }
+
+  .services .title h2 {
+    margin-top: 90px;
+    margin-bottom: 20px;
+  }
+  .services-container .box {
+    width: calc(50% - 1rem);
+    margin-bottom: 30px;
+  }
+
+  .portfolio .title h2 {
+    margin-top: 90px;
+    margin-bottom: 20px;
+  }
+  .portfolio-buttons {
+    grid-template-columns: 1fr 1fr;
+  }
+  .portfolio-container .tab-content {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 20px;
+  }
+  .portfolio-buttons {
+    gap: 2.5rem;
+  }
+  .testimonial {
+    height: 100vh;
+  }
+  .testimonial .title h2 {
+    margin-top: 100px;
+  }
+  .contact-content .box {
+    padding: 1.2rem 2.1rem;
+    border-radius: 0.5rem;
+    -webkit-border-radius: 0.5rem;
+    -moz-border-radius: 0.5rem;
+    -ms-border-radius: 0.5rem;
+    -o-border-radius: 0.5rem;
+    box-shadow: var(--shadow);
+    text-align: center;
+  }
+  .contact-content .row {
+    gap: 1rem;
+  }
+  .contact-content .contact-form {
+    padding: 2rem;
+    margin: 6rem 0;
+    width: 700px;
+  }
+  .contact .title h2 {
+    margin-top: 100px;
+    margin-bottom: 50px;
+  }
+}
+/* ========== Ipad Mini =============== */
+@media (max-width: 769px) {
+  .home .right img {
+    max-width: 15rem;
+  }
+  .about .left img {
+    max-height: 15rem;
+  }
+}
+
+/* ======================================================
+              RESPONSIVE MOBILE
+========================================================*/
+@media (max-width: 429px) {
+  .logo {
+    margin-left: -30px;
+    font-size: 1rem;
+  }
+  .logo span {
+    font-size: 1rem;
+  }
+  #menu-btn {
+    margin-right: -30px;
+    font-size: 13px;
+  }
+  #theme-btn {
+    font-size: 13px;
+  }
+  .home .right img {
+    display: block;
+    height: 14rem;
+    max-width: 100%;
+    margin-top: -15px;
+  }
+  .home .left {
+    position: relative;
+    margin-top: -20px;
+    z-index: 9999;
+  }
+  .home .social-icons {
+    margin-top: 10px;
+    margin-bottom: 40px;
+  }
+  .home .left h1 {
+    line-height: 2.2rem;
+    margin-bottom: 2px;
+  }
+  .home .left h1 span {
+    font-size: 2.1rem;
+  }
+  .home .left h3 {
+    font-size: 1.2rem;
+    line-height: 2rem;
+  }
+  .home .left p {
+    font-size: 0.7rem;
+  }
+
+  .home .social-icons i {
+    height: 5rem;
+    width: 5rem;
+    box-shadow: var(--shadow);
+    background: var(--color-bg);
+    padding: 0.8rem;
+    margin: 0.7rem;
+    font-weight: 800;
+    border-radius: 0.2rem;
+    -webkit-border-radius: 0.2rem;
+    -moz-border-radius: 0.2rem;
+    -ms-border-radius: 0.2rem;
+    -o-border-radius: 0.2rem;
+  }
+  .about .left img {
+    height: 25rem;
+    margin-top: -0.6rem;
+  }
+  .about .right .container {
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .services .title h2 {
+    margin-top: 50px;
+  }
+  .services-container .box {
+    width: calc(100% - 0rem);
+    margin-bottom: 1px;
+  }
+  .portfolio .title h2 {
+    margin-top: 50px;
+  }
+  .portfolio-container {
+    margin-top: -20px;
+  }
+  .portfolio-container .tab-content {
+    grid-template-columns: 1fr;
+  }
+  .testimonial .title h2 {
+    margin-top: 50px;
+  }
+  .testimonial-container .card {
+    min-width: 100%;
+  }
+
+  .contact {
+    min-height: 100vh;
+  }
+  .contact-content .row {
+    margin-top: -55px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+  }
+  .contact .title h2 {
+    margin-top: 50px;
+  }
+  .contact-content .row {
+    margin-top: -100px;
+  }
+
+  .contact-content .box {
+    width: 400px;
+    margin: auto;
+    padding: 1rem 1rem;
+    border-radius: 0.5rem;
+    -webkit-border-radius: 0.5rem;
+    -moz-border-radius: 0.5rem;
+    -ms-border-radius: 0.5rem;
+    -o-border-radius: 0.5rem;
+    box-shadow: var(--shadow);
+    text-align: center;
+  }
+
+  .contact-content .contact-form {
+    padding: 2rem;
+    margin: 8.5rem auto;
+    width: 93%;
+    margin-bottom: -10px;
+  }
+  .contact-form .btn {
+    display: flex;
+    margin: auto;
+    padding: 1rem 1.5rem;
+  }
+  .contact-form .btn span {
+    font-weight: 900;
+    font-size: 96%;
+    letter-spacing: 0.05rem;
+  }
+}
+</style>
+</head>
+
+<body>
+<!-- ==================================
+                    NAVBAR
+    ==================================== -->
+    <nav>
+      <div class="container nav-container">
+        <a href="micin.html" class="logo">REY<span>DEV</span></a>
+        <ul class="navlist">
+          <li><a href="micin.html">HOME</a></li>
+          <li><a href="album.html">ALBUM</a></li>
+          <li><a href="series.html">SERIES</a></li>
+          <li><a href="puisi.html">PUISI</a></li>
+          <li><a href="lagu.html">PLAYLIST</a></li>
+          <li><a href="novel.html">NOVEL</a></li>
+        </ul>
+        <div class="nav-icons">
+          <div id="theme-btn" class="ri-moon-line"></div>
+          <div id="menu-btn" class="ri-menu-line"></div>
+        </div>
+      </div>
+    </nav>
+
+<!-- =========================================
+            PARTICLE GENERATOR
+========================================= -->
+<script>
+for (let i = 0; i < 22; i++) {
+    let petal = document.createElement("div");
+    petal.classList.add("petal");
+    petal.style.left = Math.random() * 100 + "vw";
+    petal.style.animationDuration = 4 + Math.random() * 4 + "s";
+    petal.style.opacity = Math.random();
+    document.body.appendChild(petal);
+}
+</script>
+
+<!-- =========================================
+            PUISI BOX
+========================================= -->
+<div class="poem-wrapper">
+    <h1>Puisi Rey</h1>
+    <div class="poem-content" id="poemText"></div>
+    <div class="button-container">
+        <button id="playAudio">Play Music</button>
+        <button id="prevButton">Previous</button>
+        <button id="nextButton">Next</button>
+    </div>
+</div>
+
+<audio id="backgroundAudio" src="Lagu/suratcinta.mp3" loop></audio>
+
+<!-- =========================================
+                JS PUISI
+========================================= -->
+<script>
+const poems = [
+`<p>Jika dunia ini adalah ruang gema,</p>
+ <p>maka suaramu adalah pusatnya—</p>
+ <p>tempat segala resah pulang,</p>
+ <p>tempat segala takut beristirahat,</p>
+ <p>tempat segala rinduku menemukan alasan.</p>`,
+
+ `<p>Aku mencintaimu </p>
+<p>dengan cara yang pelan, </p>
+<p>sepelan bulan menua di langit,</p>
+<p>sepelan bunga menghafal angin,</p>
+<p>sepelan detak yang tak butuh saksi</p>
+<p>untuk tahu ke mana ia ingin kembali.</p>`,
+
+`<p>Dan bila kelak kau merasa letih, datanglah padaku,</p>
+<p>biarkan aku menjadi rumah yang diam</p>
+<p>namun tak pernah berhenti menunggu,</p>
+<p>karena sejak pertama kau hadir,</p>
+<p>seluruh bintang telah memilih berarak ke arah namamu.</p>`,
+
+ `<p>Kalau cinta itu suara,</p>
+  <p>mungkin dia suaramu waktu manggil namaku pelan-pelan.</p>
+  <p>Kalau cinta itu langkah,</p>
+  <p>mungkin dia caramu pulang lagi,</p>
+  <P>padahal kamu bisa aja memilih jalan lain.</P>`,
+
+  `<p>Kamu adalah jeda yang aku cari,</p>
+  <p>di hari-hari yang terlalu bising,</p>
+  <p>terlalu ramai,</p>
+  <p>terlalu menyeramkan.</p>`,
+
+  `<p>Kamu adalah jeda</p>
+  <p>yang jatuh di antara hiruk langkahku,</p>
+  <p>sebuah ruang kecil yang tak pernah kita namai</p>
+  <p>tapi selalu kita pulangi.</p>`,
+
+  `<p>Ada patahku yang luruh di pelukanmu.</p>
+  <p>Ada takutmu yang aku simpan di genggamanku.</p>
+  <p>Ada kita yang tumbuh bukan karna janji,</p>
+  <p>tapi karena sama sama lelah menjadi kuat sendirian.</p>`,
+
+`<p>Di matamu,</p>
+<p>aku melihat lembah yang tak pernah beristirahat,</p>
+<p>gunung yang berdiri rapuh,</p>
+<p>dan laut yang pura-pura tenang</p>
+<p>agar langit tidak merasa bersalah.</p>`,
+
+`<p>Kamu menampung badai dengan tanganmu sendiri,</p>
+<p>seolah hujan diciptakan hanya untuk kamu lawan.</p>
+<p>Seolah sakit itu sederhana,</p>
+<p>asal tidak kamu ceritakan.</p>`,
+
+`<p>Jika dunia terlalu keras,</p>
+<p>tinggallah sebentar di sini,</p>
+<p>di antara napas yang kita biarkan saling bertemu,</p>
+<p>di antara diam yang saling memeluk,</p>
+<p>di antara cerita yang lahir</p>
+<p>tanpa harus diteriakkan.</p>`,
+
+`<p>Jika kamu ingin hancur, hancurlah perlahan.</p>
+<p>Aku tidak takut melihatmu pecah;</p>
+<p>yang kutakutkan hanya jika kamu pecah</p>
+<p>tanpa ada yang tahu </p>
+<p>bagaimana mungkin kamu tersusun kembali.</p>`,
+
+`<p>Tetaplah di sini sebentar,</p>
+<p>di antara runtuh yang tak sempat kamu ceritakan.</p>
+<p>semua hal yang tidak berani kamu ucapkan.</p>`,
+
+ `<p>Di malam sunyi, kuintip langit bertabur cahaya,</p>
+  <p>Lalu kulihat bintang paling terang.</p>
+  <p>Kaulah sinar dalam redupku,</p>
+  <p>Menerangi bagian diri yang pernah hilang.</p>`
+];
+
+let index = 0;
+const poemText = document.getElementById("poemText");
+const audio = document.getElementById("backgroundAudio");
+function renderPoem() {
+    poemText.innerHTML = poems[index];
+    [...poemText.children].forEach((p,i)=>p.style.animationDelay = `${i*0.15}s`);
+}
+renderPoem();
+document.getElementById("nextButton").onclick = () => {
+    index = (index + 1) % poems.length;
+    renderPoem();
+};
+document.getElementById("prevButton").onclick = () => {
+    index = (index - 1 + poems.length) % poems.length;
+    renderPoem();
+};
+document.getElementById("playAudio").onclick = function() {
+    if (audio.paused) {
+        audio.play();
+        this.textContent = "Pause Music";
+    } else {
+        audio.pause();
+        this.textContent = "Play Music";
+    }
+};
+</script>
+
+<script>
+// ============== MENU NAVBAR ================
+const navlist = document.querySelector(".navlist");
+const menuBtn = document.querySelector(".ri-menu-line");
+
+menuBtn.onclick = function () {
+  navlist.classList.toggle("active");
+  menuBtn.classList.toggle("ri-arrow-up-double-line");
+};
+
+// ============== STICKY NAVBAR ================
+window.addEventListener("scroll", () => {
+  document.querySelector("nav").classList.toggle("scrolling", scrollY > 50);
+});
+
+
+/* =========================================
+   GLOBAL THEME SYSTEM FINAL
+========================================= */
+
+const themeBtn = document.getElementById("theme-btn");
+
+// 1. Load theme dari localStorage
+let savedTheme = localStorage.getItem("theme");
+
+function applyTheme(mode) {
+    if (mode === "dark") {
+        document.body.classList.add("active");
+        document.body.classList.remove("light-theme");
+
+        themeBtn.classList.remove("ri-moon-line");
+        themeBtn.classList.add("ri-sun-line");
+
+    } else {
+        document.body.classList.remove("active");
+        document.body.classList.add("light-theme");
+
+        themeBtn.classList.remove("ri-sun-line");
+        themeBtn.classList.add("ri-moon-line");
+    }
+}
+
+// apply saat halaman dibuka
+applyTheme(savedTheme || "light");
+
+// 2. Toggle saat klik tombol
+themeBtn.addEventListener("click", () => {
+    let newTheme = document.body.classList.contains("active") ? "light" : "dark";
+
+    applyTheme(newTheme);
+    localStorage.setItem("theme", newTheme);
+});
+
+</script>
+</body>
+</html>
